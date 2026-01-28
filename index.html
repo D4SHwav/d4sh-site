@@ -1,0 +1,300 @@
+<!doctype html>
+<html lang="en" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D4SH | Official DJ Site</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600;800&amp;display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    .hero-bg {
+      background: 
+        linear-gradient(to bottom, rgba(0,0,0,0.4), rgba(0,0,0,0.9)),
+        radial-gradient(ellipse at 30% 20%, rgba(139, 92, 246, 0.4) 0%, transparent 50%),
+        radial-gradient(ellipse at 70% 60%, rgba(236, 72, 153, 0.3) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 80%, rgba(59, 130, 246, 0.3) 0%, transparent 40%),
+        #000;
+    }
+    
+    .glow-text {
+      text-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(236, 72, 153, 0.4);
+    }
+    
+    .track-card {
+      background: linear-gradient(135deg, rgba(30, 30, 40, 0.9) 0%, rgba(15, 15, 20, 0.95) 100%);
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      transition: all 0.3s ease;
+    }
+    
+    .track-card:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+      transform: translateY(-4px);
+      box-shadow: 0 20px 40px rgba(139, 92, 246, 0.2);
+    }
+    
+    .btn-primary {
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 100%);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-primary:hover {
+      transform: scale(1.05);
+      box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+    }
+    
+    .upload-box {
+      background: linear-gradient(135deg, rgba(30, 30, 40, 0.8) 0%, rgba(15, 15, 20, 0.9) 100%);
+      border: 1px dashed rgba(139, 92, 246, 0.4);
+    }
+    
+    audio::-webkit-media-controls-panel {
+      background: rgba(139, 92, 246, 0.1);
+    }
+    
+    .notification {
+      animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s forwards;
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; }
+    }
+    
+    .wave-animation {
+      animation: wave 2s ease-in-out infinite;
+    }
+    
+    @keyframes wave {
+      0%, 100% { transform: scaleY(0.5); }
+      50% { transform: scaleY(1); }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full font-['Montserrat'] bg-black text-white overflow-x-hidden">
+  <div id="app-wrapper" class="h-full w-full overflow-auto"><!-- Notification Container -->
+   <div id="notification-container" class="fixed top-4 right-4 z-50"></div><!-- Header/Hero Section -->
+   <header class="hero-bg min-h-screen flex flex-col justify-center items-center text-center px-6 relative"><!-- Animated Sound Waves -->
+    <div class="absolute inset-0 flex items-center justify-center opacity-20 pointer-events-none">
+     <div class="flex gap-1">
+      <div class="w-1 h-16 bg-purple-500 rounded-full wave-animation" style="animation-delay: 0s;"></div>
+      <div class="w-1 h-24 bg-pink-500 rounded-full wave-animation" style="animation-delay: 0.1s;"></div>
+      <div class="w-1 h-20 bg-purple-500 rounded-full wave-animation" style="animation-delay: 0.2s;"></div>
+      <div class="w-1 h-32 bg-pink-500 rounded-full wave-animation" style="animation-delay: 0.3s;"></div>
+      <div class="w-1 h-16 bg-purple-500 rounded-full wave-animation" style="animation-delay: 0.4s;"></div>
+      <div class="w-1 h-28 bg-pink-500 rounded-full wave-animation" style="animation-delay: 0.5s;"></div>
+      <div class="w-1 h-20 bg-purple-500 rounded-full wave-animation" style="animation-delay: 0.6s;"></div>
+     </div>
+    </div>
+    <h1 id="artist-name" class="text-6xl md:text-8xl font-extrabold tracking-widest glow-text relative z-10">D4SH</h1>
+    <p id="tagline" class="text-lg md:text-xl text-gray-300 mt-4 tracking-wider relative z-10">EDM • Progressive House</p><a href="#releases" class="btn-primary mt-8 px-10 py-4 rounded-full text-white font-semibold tracking-wide relative z-10 no-underline"> 🎧 Listen Now </a>
+   </header><!-- Latest Releases Section -->
+   <main>
+    <section id="releases" class="py-20 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-black to-gray-950">
+     <h2 class="text-3xl md:text-4xl font-bold tracking-wider mb-12 text-center"><span class="text-purple-400">🎵</span> Latest Releases</h2>
+     <div id="tracks" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 max-w-6xl mx-auto"><!-- Placeholder when no tracks -->
+      <div id="no-tracks" class="col-span-full text-center py-16 text-gray-500">
+       <div class="text-6xl mb-4">
+        🎹
+       </div>
+       <p class="text-lg">No tracks uploaded yet</p>
+       <p class="text-sm mt-2">Use the upload section below to add music</p>
+      </div>
+     </div>
+    </section><!-- Upload Section -->
+    <section class="py-20 px-6 md:px-16 lg:px-24 bg-gray-950">
+     <h2 class="text-3xl md:text-4xl font-bold tracking-wider mb-12 text-center"><span class="text-pink-400">⬆️</span> Upload Music</h2>
+     <div class="upload-box max-w-lg mx-auto p-8 rounded-2xl">
+      <div class="space-y-5">
+       <div><label for="title" class="block text-sm text-gray-400 mb-2">Track Title</label> <input type="text" id="title" placeholder="Enter track name..." class="w-full px-4 py-3 bg-black/50 border border-purple-500/30 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:border-purple-500 transition-colors">
+       </div>
+       <div><label for="file" class="block text-sm text-gray-400 mb-2">Audio File</label> <input type="file" id="file" accept="audio/*" class="w-full px-4 py-3 bg-black/50 border border-purple-500/30 rounded-lg text-white file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:bg-purple-600 file:text-white file:cursor-pointer hover:file:bg-purple-500 transition-colors">
+       </div><button id="upload-btn" class="w-full btn-primary py-4 rounded-lg font-semibold tracking-wide mt-4"> Upload Track </button>
+      </div>
+     </div>
+    </section><!-- About Section -->
+    <section class="py-20 px-6 md:px-16 lg:px-24 bg-gradient-to-b from-gray-950 to-black">
+     <h2 class="text-3xl md:text-4xl font-bold tracking-wider mb-8 text-center"><span class="text-purple-400">✨</span> About</h2>
+     <div class="max-w-2xl mx-auto text-center">
+      <p id="about-text" class="text-lg text-gray-300 leading-relaxed">D4SH is an EDM &amp; Progressive House DJ focused on emotional melodies and high-energy festival drops. Blending euphoric synths with driving basslines to create unforgettable moments on the dancefloor.</p>
+     </div>
+    </section>
+   </main><!-- Footer -->
+   <footer class="py-8 px-6 text-center bg-black border-t border-gray-900">
+    <p id="footer-text" class="text-gray-500 text-sm">© 2025 D4SH. All rights reserved.</p>
+   </footer>
+  </div>
+  <script>
+    const defaultConfig = {
+      artist_name: 'D4SH',
+      tagline: 'EDM • Progressive House',
+      about_text: 'D4SH is an EDM & Progressive House DJ focused on emotional melodies and high-energy festival drops. Blending euphoric synths with driving basslines to create unforgettable moments on the dancefloor.',
+      footer_text: '© 2025 D4SH. All rights reserved.',
+      primary_color: '#8b5cf6',
+      secondary_color: '#ec4899',
+      background_color: '#000000',
+      text_color: '#ffffff',
+      surface_color: '#1e1e28'
+    };
+
+    const tracks = [];
+
+    function showNotification(message, type = 'success') {
+      const container = document.getElementById('notification-container');
+      const notification = document.createElement('div');
+      notification.className = `notification px-6 py-3 rounded-lg shadow-lg mb-2 ${
+        type === 'success' ? 'bg-green-600' : 'bg-red-600'
+      }`;
+      notification.textContent = message;
+      container.appendChild(notification);
+      
+      setTimeout(() => {
+        notification.remove();
+      }, 3000);
+    }
+
+    function uploadTrack() {
+      const titleInput = document.getElementById('title');
+      const fileInput = document.getElementById('file');
+      const title = titleInput.value.trim();
+      const file = fileInput.files[0];
+      
+      if (!title || !file) {
+        showNotification('Please add both a title and an audio file', 'error');
+        return;
+      }
+
+      const url = URL.createObjectURL(file);
+      tracks.push({ title, url, id: Date.now() });
+      renderTracks();
+      
+      // Clear inputs
+      titleInput.value = '';
+      fileInput.value = '';
+      
+      showNotification(`"${title}" uploaded successfully!`, 'success');
+    }
+
+    function deleteTrack(id) {
+      const index = tracks.findIndex(t => t.id === id);
+      if (index > -1) {
+        const track = tracks[index];
+        URL.revokeObjectURL(track.url);
+        tracks.splice(index, 1);
+        renderTracks();
+        showNotification('Track removed', 'success');
+      }
+    }
+
+    function renderTracks() {
+      const container = document.getElementById('tracks');
+      const noTracks = document.getElementById('no-tracks');
+      
+      if (tracks.length === 0) {
+        noTracks.style.display = 'block';
+        container.querySelectorAll('.track-card').forEach(el => el.remove());
+        return;
+      }
+      
+      noTracks.style.display = 'none';
+      
+      // Clear existing track cards
+      container.querySelectorAll('.track-card').forEach(el => el.remove());
+      
+      tracks.forEach(t => {
+        const trackEl = document.createElement('div');
+        trackEl.className = 'track-card p-6 rounded-xl';
+        trackEl.innerHTML = `
+          <div class="flex justify-between items-start mb-4">
+            <h3 class="text-xl font-semibold text-white">${escapeHtml(t.title)}</h3>
+            <button 
+              onclick="deleteTrack(${t.id})"
+              class="text-gray-400 hover:text-red-400 transition-colors p-1"
+              title="Remove track"
+            >
+              ✕
+            </button>
+          </div>
+          <audio controls src="${t.url}" class="w-full rounded-lg"></audio>
+        `;
+        container.appendChild(trackEl);
+      });
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement('div');
+      div.textContent = text;
+      return div.innerHTML;
+    }
+
+    async function onConfigChange(config) {
+      document.getElementById('artist-name').textContent = config.artist_name || defaultConfig.artist_name;
+      document.getElementById('tagline').textContent = config.tagline || defaultConfig.tagline;
+      document.getElementById('about-text').textContent = config.about_text || defaultConfig.about_text;
+      document.getElementById('footer-text').textContent = config.footer_text || defaultConfig.footer_text;
+    }
+
+    function mapToCapabilities(config) {
+      return {
+        recolorables: [
+          {
+            get: () => config.background_color || defaultConfig.background_color,
+            set: (value) => { config.background_color = value; window.elementSdk.setConfig({ background_color: value }); }
+          },
+          {
+            get: () => config.surface_color || defaultConfig.surface_color,
+            set: (value) => { config.surface_color = value; window.elementSdk.setConfig({ surface_color: value }); }
+          },
+          {
+            get: () => config.text_color || defaultConfig.text_color,
+            set: (value) => { config.text_color = value; window.elementSdk.setConfig({ text_color: value }); }
+          },
+          {
+            get: () => config.primary_color || defaultConfig.primary_color,
+            set: (value) => { config.primary_color = value; window.elementSdk.setConfig({ primary_color: value }); }
+          },
+          {
+            get: () => config.secondary_color || defaultConfig.secondary_color,
+            set: (value) => { config.secondary_color = value; window.elementSdk.setConfig({ secondary_color: value }); }
+          }
+        ],
+        borderables: [],
+        fontEditable: undefined,
+        fontSizeable: undefined
+      };
+    }
+
+    function mapToEditPanelValues(config) {
+      return new Map([
+        ['artist_name', config.artist_name || defaultConfig.artist_name],
+        ['tagline', config.tagline || defaultConfig.tagline],
+        ['about_text', config.about_text || defaultConfig.about_text],
+        ['footer_text', config.footer_text || defaultConfig.footer_text]
+      ]);
+    }
+
+    // Initialize
+    document.getElementById('upload-btn').addEventListener('click', uploadTrack);
+    
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities,
+        mapToEditPanelValues
+      });
+    }
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c4f3310953fd80f',t:'MTc2OTU4OTc3OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
